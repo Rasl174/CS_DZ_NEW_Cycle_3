@@ -11,9 +11,7 @@ namespace CS_DZ_NEW_Cycle_3
         static void Main(string[] args)
         {
             string brackets;
-            int openCount = 0;
-            int closeCount = 0;
-            bool correctFirst = false;
+            int depth = 0;
             int maxDepth = 0;
 
             Console.Write("Введите скобки что бы проверить: ");
@@ -23,29 +21,26 @@ namespace CS_DZ_NEW_Cycle_3
             {
                 if (bracket == '(')
                 {
-                    correctFirst = true;
-                    openCount++;
+                    depth++;
+                    maxDepth = depth;
                 }
                 else
                 {
-                    closeCount++;
-                    if(openCount >= closeCount)
+                    depth--;
+                    if (depth < 0)
                     {
-                        maxDepth = openCount;
-                    }
-                    if (closeCount >= openCount)
-                    {
-                        maxDepth = closeCount;
+                        Console.WriteLine("Это не допустимое выражение.");
+                        break;
                     }
                 }
             }
 
-            if (closeCount > openCount || openCount > closeCount)
+            if (depth > 0)
             {
                 Console.WriteLine("Это не допустимое выражение.");
-                Console.WriteLine("Максимальная глубина - " + maxDepth);
             }
-            if(openCount == closeCount && correctFirst)
+
+            if(depth == 0)
             {
                 Console.WriteLine("Это допустимое выражение.");
                 Console.WriteLine("Максимальная глубина - " + maxDepth);
